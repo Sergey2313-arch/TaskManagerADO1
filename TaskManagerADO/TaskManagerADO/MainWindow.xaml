@@ -1,0 +1,43 @@
+﻿<Window x:Class="TaskManagerADO.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Task Manager (ADO.NET)" Height="520" Width="820">
+    <Grid Margin="12">
+        <!-- ОБЯЗАТЕЛЬНО: описываем 3 строки -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>  <!-- панель добавления -->
+            <RowDefinition Height="*"/>     <!-- таблица -->
+            <RowDefinition Height="Auto"/>  <!-- кнопки снизу -->
+        </Grid.RowDefinitions>
+
+        <!-- Панель добавления -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 0 0 10">
+            <TextBox x:Name="TitleBox" Width="260" Margin="0 0 8 0" VerticalContentAlignment="Center"
+                     ToolTip="Название задачи" />
+            <TextBox x:Name="DescBox" Width="360" Margin="0 0 8 0" VerticalContentAlignment="Center"
+                     ToolTip="Описание (необязательно)" />
+            <Button Content="Добавить" Width="120" Click="Add_Click"/>
+        </StackPanel>
+
+        <!-- Таблица -->
+        <DataGrid x:Name="GridTasks" Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  MouseDoubleClick="GridTasks_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID"        Binding="{Binding id}"          Width="60"/>
+                <DataGridTextColumn Header="Название"  Binding="{Binding title}"       Width="*"/>
+                <DataGridTextColumn Header="Описание"  Binding="{Binding description}" Width="2*"/>
+                <DataGridTextColumn Header="Создано"   Binding="{Binding created_at}"  Width="160"/>
+                <DataGridCheckBoxColumn Header="Готово" Binding="{Binding completed}"  Width="80"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Кнопки снизу -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+            <Button Content="Обновить"            Width="120" Margin="0 0 8 0" Click="Refresh_Click"/>
+            <Button Content="Удалить выбранную"   Width="160"                     Click="Delete_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
